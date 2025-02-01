@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOB-Book-Store</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/book.css" />
+    <link rel="stylesheet" href="./styles/media.css" />
+    <link rel="stylesheet" href="./styles/standard.css" />
+    <link rel="stylesheet" href="./assets/fonts/fonts.css" />
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/online-bibliothek.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body onload="renderBooks()">
+    <section>
+      <header class="header">
+        <h1 class="headline">
+          <img
+            class="icon"
+            src="./assets/icons/online-bibliothek.png"
+            alt="online-bibliothek"
+            srcset=""
+          /><span class="headline_letter">SOB</span>-Book-Store
+        </h1>
+        <span class="slogan"> - get your books here</span>
+      </header>
+    </section>
+    <section class="main">
+      <main id="allBooks" class="main_content"></main>
+    </section>
+    <section>
+      <footer class="footer"></footer>
+    </section>
+  </body>
+  <script src="./scripts/book_objects.js"></script>
+  <script src="./scripts/template.js"></script>
+  <script src="./script.js"></script>
+</html>

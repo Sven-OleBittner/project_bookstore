@@ -1,0 +1,18 @@
+@media (max-width: 410px){
+    .headline{
+        font-size: 16px;
+        align-items: center;
+    }
+
+    .slogan{
+        font-size: 12px;
+    }
+
+    .book{
+        width: 280px;
+    }
+
+    .input_user{
+        width: 56px;
+    }
+}
