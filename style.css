@@ -46,6 +46,10 @@ body::-webkit-scrollbar {
  padding-left: 8px;
 }
 
+.white_text{
+    color: white;
+}
+
 .main_content {
     background-color: #05171E;
     display: flex;
