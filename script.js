@@ -6,7 +6,10 @@ function renderBooks() {
 
   for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
     dataFromStorage(bookIndex);
-    let bookPrice = books[bookIndex].price.toFixed(2).replace(".", ",").concat("€");
+    let bookPrice = books[bookIndex].price
+      .toFixed(2)
+      .replace(".", ",")
+      .concat("€");
     allBooksRef.innerHTML += getBookTemplate(bookIndex, bookPrice);
     renderLikeBtn(bookIndex);
     renderBookComments(bookIndex);
@@ -17,9 +20,15 @@ function renderBookComments(bookIndex) {
   let userCommentsRef = document.getElementById(bookIndex + "userComments");
   userCommentsRef.innerHTML = "";
 
-  for (let commentIndex = books[bookIndex].comments.length - 1;commentIndex >= 0;commentIndex--
+  for (
+    let commentIndex = books[bookIndex].comments.length - 1;
+    commentIndex >= 0;
+    commentIndex--
   ) {
-    userCommentsRef.innerHTML += getUserCommentsTemplate(bookIndex,commentIndex);
+    userCommentsRef.innerHTML += getUserCommentsTemplate(
+      bookIndex,
+      commentIndex
+    );
   }
 }
 
@@ -71,17 +80,27 @@ function addBookComment(bookIndex) {
 }
 
 function dataToStorage(bookIndex) {
-  localStorage.setItem(`${bookIndex}comments`,JSON.stringify(books[bookIndex].comments));
-  localStorage.setItem(`${bookIndex}likes`,JSON.stringify(books[bookIndex].likes));
-  localStorage.setItem(`${bookIndex}liked`,JSON.stringify(books[bookIndex].liked));
+  localStorage.setItem(
+    `${bookIndex}comments`,
+    JSON.stringify(books[bookIndex].comments)
+  );
+  localStorage.setItem(
+    `${bookIndex}likes`,
+    JSON.stringify(books[bookIndex].likes)
+  );
+  localStorage.setItem(
+    `${bookIndex}liked`,
+    JSON.stringify(books[bookIndex].liked)
+  );
 }
 
 function dataFromStorage(bookIndex) {
   let commentData = JSON.parse(localStorage.getItem(`${bookIndex}comments`));
   let likesData = JSON.parse(localStorage.getItem(`${bookIndex}likes`));
   let likedData = JSON.parse(localStorage.getItem(`${bookIndex}liked`));
-
-  books[bookIndex].comments = commentData;
-  books[bookIndex].likes = likesData;
-  books[bookIndex].liked = likedData;
+  if (commentData != null) {
+    books[bookIndex].comments = commentData;
+    books[bookIndex].likes = likesData;
+    books[bookIndex].liked = likedData;
+  }
 }
