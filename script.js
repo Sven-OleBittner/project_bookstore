@@ -1,5 +1,6 @@
 let newBookComments = [];
 
+
 function renderBooks() {
   let allBooksRef = document.getElementById("allBooks");
   allBooksRef.innerHTML = "";
@@ -60,55 +61,63 @@ function changeLikeBtn(bookIndex) {
     books[bookIndex].likes--;
     books[bookIndex].liked = false;
   }
-  dataToStorage(newBookComments, bookIndex);
+  dataToStorage(bookIndex);
   renderLikeBtn(bookIndex);
   renderBookLikes(bookIndex);
 }
 
 function addBookComment(bookIndex) {
-  let userRef = document.getElementById(bookIndex + "inputUser");
-  let commentRef = document.getElementById(bookIndex + "inputComment");
-  let userValue = userRef.value;
-  let commentValue = commentRef.value;
+  let userValue = document.getElementById(bookIndex + "inputUser").value;
+  let commentValue = document.getElementById(bookIndex + "inputComment").value;
 
   if (userValue != "" && commentValue != "") {
     let commentObj = { name: `"${userValue}"`, comment: `"${commentValue}"` };
-    newBookComments.push(commentObj);
     books[bookIndex].comments.push(commentObj);
-    dataToStorage(newBookComments, bookIndex);
     renderBookComments(bookIndex);
-    userRef.value = "";
-    commentRef.value = "";
+    dataToStorage(bookIndex);
+    // renderNewBookComments(commentObj, bookIndex);
+    document.getElementById(bookIndex + "inputUser").value = "";
+    document.getElementById(bookIndex + "inputComment").value = "";
   }
 }
 
-function dataToStorage(newBookComments, bookIndex) {
-  let likesNum = JSON.stringify(books[bookIndex].likes);
-  let commentString = JSON.stringify(newBookComments);
-  let likedBoolean = JSON.stringify(books[bookIndex].liked)
-  localStorage.setItem(`${bookIndex}comments`, commentString);
-  localStorage.setItem(`${bookIndex}likes`, likesNum);
-  localStorage.setItem(`${bookIndex}liked`, likedBoolean);
-
+function dataToStorage(bookIndex) {
+  localStorage.setItem(`${bookIndex}comments`,JSON.stringify(books[bookIndex].comments));
+  localStorage.setItem(`${bookIndex}likes`,JSON.stringify(books[bookIndex].likes));
+  localStorage.setItem(`${bookIndex}liked`,JSON.stringify(books[bookIndex].liked));
 }
 
 function dataFromStorage(bookIndex) {
-  let commentString = localStorage.getItem(`${bookIndex}comments`);
-  let likesString = localStorage.getItem(`${bookIndex}likes`);
-  let likedBoolean = localStorage.getItem(`${bookIndex}liked`);
-  let commentData = JSON.parse(commentString);
-  let likesData = JSON.parse(likesString);
-  let likedData = JSON.parse(likedBoolean);
+  let commentData = JSON.parse(localStorage.getItem(`${bookIndex}comments`));
+  let likesData = JSON.parse(localStorage.getItem(`${bookIndex}likes`));
+  let likedData = JSON.parse(localStorage.getItem(`${bookIndex}liked`));
 
   if (commentData != null) {
-    for (
-      let storageIndex = 0;
-      storageIndex < commentData.length;
-      storageIndex++
-    ) {
-      books[bookIndex].comments.push(commentData[storageIndex]);
-    }
+    // for (
+    //   let storageIndex = 0;
+    //   storageIndex < commentData.length;
+    //   storageIndex++
+    // ) {
+    //   books[bookIndex].comments.push(commentData[storageIndex]);
+    // }
+    books[bookIndex].comments = commentData;
     books[bookIndex].likes = likesData;
     books[bookIndex].liked = likedData;
   }
 }
+
+// function renderNewBookComments(commentObj, bookIndex) {
+//   newBookComments.push(commentObj);
+
+//   // if (newBookComments != []) {
+//   //   for (
+//   //     let newCommentIndex = 0;
+//   //     newCommentIndex < newBookComments.length;
+//   //     newCommentIndex++
+//   //   ) {
+      
+//   //   }
+//   // }
+//   books[bookIndex].comments.push(newBookComments);
+//   renderBookComments(bookIndex);
+// }
