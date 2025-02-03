@@ -1,16 +1,12 @@
 let newBookComments = [];
 
-
 function renderBooks() {
   let allBooksRef = document.getElementById("allBooks");
   allBooksRef.innerHTML = "";
 
   for (let bookIndex = 0; bookIndex < books.length; bookIndex++) {
     dataFromStorage(bookIndex);
-    let bookPrice = books[bookIndex].price
-      .toFixed(2)
-      .replace(".", ",")
-      .concat("€");
+    let bookPrice = books[bookIndex].price.toFixed(2).replace(".", ",").concat("€");
     allBooksRef.innerHTML += getBookTemplate(bookIndex, bookPrice);
     renderLikeBtn(bookIndex);
     renderBookComments(bookIndex);
@@ -21,15 +17,9 @@ function renderBookComments(bookIndex) {
   let userCommentsRef = document.getElementById(bookIndex + "userComments");
   userCommentsRef.innerHTML = "";
 
-  for (
-    let commentIndex = books[bookIndex].comments.length - 1;
-    commentIndex >= 0;
-    commentIndex--
+  for (let commentIndex = books[bookIndex].comments.length - 1;commentIndex >= 0;commentIndex--
   ) {
-    userCommentsRef.innerHTML += getUserCommentsTemplate(
-      bookIndex,
-      commentIndex
-    );
+    userCommentsRef.innerHTML += getUserCommentsTemplate(bookIndex,commentIndex);
   }
 }
 
@@ -75,7 +65,6 @@ function addBookComment(bookIndex) {
     books[bookIndex].comments.push(commentObj);
     renderBookComments(bookIndex);
     dataToStorage(bookIndex);
-    // renderNewBookComments(commentObj, bookIndex);
     document.getElementById(bookIndex + "inputUser").value = "";
     document.getElementById(bookIndex + "inputComment").value = "";
   }
@@ -92,32 +81,7 @@ function dataFromStorage(bookIndex) {
   let likesData = JSON.parse(localStorage.getItem(`${bookIndex}likes`));
   let likedData = JSON.parse(localStorage.getItem(`${bookIndex}liked`));
 
-  if (commentData != null) {
-    // for (
-    //   let storageIndex = 0;
-    //   storageIndex < commentData.length;
-    //   storageIndex++
-    // ) {
-    //   books[bookIndex].comments.push(commentData[storageIndex]);
-    // }
-    books[bookIndex].comments = commentData;
-    books[bookIndex].likes = likesData;
-    books[bookIndex].liked = likedData;
-  }
+  books[bookIndex].comments = commentData;
+  books[bookIndex].likes = likesData;
+  books[bookIndex].liked = likedData;
 }
-
-// function renderNewBookComments(commentObj, bookIndex) {
-//   newBookComments.push(commentObj);
-
-//   // if (newBookComments != []) {
-//   //   for (
-//   //     let newCommentIndex = 0;
-//   //     newCommentIndex < newBookComments.length;
-//   //     newCommentIndex++
-//   //   ) {
-      
-//   //   }
-//   // }
-//   books[bookIndex].comments.push(newBookComments);
-//   renderBookComments(bookIndex);
-// }
