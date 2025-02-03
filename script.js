@@ -21,14 +21,8 @@ function renderBookComments(bookIndex) {
   userCommentsRef.innerHTML = "";
 
   for (
-    let commentIndex = books[bookIndex].comments.length - 1;
-    commentIndex >= 0;
-    commentIndex--
-  ) {
-    userCommentsRef.innerHTML += getUserCommentsTemplate(
-      bookIndex,
-      commentIndex
-    );
+    let commentIndex = books[bookIndex].comments.length - 1;commentIndex >= 0;commentIndex--) {
+    userCommentsRef.innerHTML += getUserCommentsTemplate(bookIndex,commentIndex);
   }
 }
 
@@ -80,18 +74,9 @@ function addBookComment(bookIndex) {
 }
 
 function dataToStorage(bookIndex) {
-  localStorage.setItem(
-    `${bookIndex}comments`,
-    JSON.stringify(books[bookIndex].comments)
-  );
-  localStorage.setItem(
-    `${bookIndex}likes`,
-    JSON.stringify(books[bookIndex].likes)
-  );
-  localStorage.setItem(
-    `${bookIndex}liked`,
-    JSON.stringify(books[bookIndex].liked)
-  );
+  localStorage.setItem(`${bookIndex}comments`,JSON.stringify(books[bookIndex].comments));
+  localStorage.setItem(`${bookIndex}likes`,JSON.stringify(books[bookIndex].likes));
+  localStorage.setItem(`${bookIndex}liked`,JSON.stringify(books[bookIndex].liked));
 }
 
 function dataFromStorage(bookIndex) {
